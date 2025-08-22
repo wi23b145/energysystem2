@@ -1,0 +1,6 @@
+at\technikum\usageservice\dto\EnergyEvent.class
+at\technikum\usageservice\UsageServiceApplication.class
+at\technikum\usageservice\messaging\UsageListeners.class
+at\technikum\usageservice\service\UsageService.class
+at\technikum\usageservice\repository\UsageRepository.class
+at\technikum\usageservice\config\RabbitMQConfig.class
