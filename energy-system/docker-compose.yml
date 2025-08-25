@@ -1,0 +1,21 @@
+version: '3.8'
+
+services:
+  database:
+    image: postgres:alpine
+    ports:
+      - '5432:5432'
+    environment:
+      - POSTGRES_DB=energysystem
+      - POSTGRES_USER=disysuser
+      - POSTGRES_PASSWORD=disyspw
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+
+  rabbitmq:
+    image: rabbitmq:management-alpine
+    ports:
+      - '5672:5672'
+      - '15672:15672'
+volumes:
+  pgdata:

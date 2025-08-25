@@ -1,0 +1,5 @@
+/Users/laura_aufischer/Desktop/stuff/UNI/SS2025/DIS_2/energy-system/energy-api/src/main/java/at/technikum/energyapi/EnergyApiApplication.java
+/Users/laura_aufischer/Desktop/stuff/UNI/SS2025/DIS_2/energy-system/energy-api/src/main/java/at/technikum/energyapi/controller/EnergyController.java
+/Users/laura_aufischer/Desktop/stuff/UNI/SS2025/DIS_2/energy-system/energy-api/src/main/java/at/technikum/energyapi/dto/CurrentDto.java
+/Users/laura_aufischer/Desktop/stuff/UNI/SS2025/DIS_2/energy-system/energy-api/src/main/java/at/technikum/energyapi/dto/HistoricalDto.java
+/Users/laura_aufischer/Desktop/stuff/UNI/SS2025/DIS_2/energy-system/energy-api/src/main/java/at/technikum/energyapi/repo/EnergyReadRepository.java
