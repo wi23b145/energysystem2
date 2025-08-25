@@ -14,6 +14,7 @@ import java.time.ZoneOffset;
 import java.util.Map;
 import java.util.Random;
 import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 
 @SpringBootApplication
@@ -71,9 +72,9 @@ public class EnergyUserApplication {
             var rnd = new Random();
             var generator = new UsageGenerator();
 
-            scheduler.scheduleWithFixedDelay(() -> {
+            ((ScheduledExecutorService) scheduler).scheduleWithFixedDelay(() -> {
                 try {
-                    double kwh = generator.generateUserKwh(rnd);
+                    double kwh = ((UsageGenerator) generator).generateUserKwh(rnd);
                     Map<String, Object> message = Map.of(
                             "type", "USER",
                             "association", "COMMUNITY",

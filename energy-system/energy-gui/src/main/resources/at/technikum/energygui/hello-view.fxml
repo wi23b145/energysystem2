@@ -6,7 +6,11 @@
 <VBox xmlns="http://javafx.com/javafx"
       xmlns:fx="http://javafx.com/fxml"
       fx:controller="at.technikum.energygui.EnergyController"
-      spacing="12" padding="16">
+      spacing="12">
+  <padding>
+    <Insets top="16" right="16" bottom="16" left="16"/>
+  </padding>
+
 
   <!-- Kopf: aktuelle Prozentwerte -->
   <GridPane hgap="12" vgap="6">

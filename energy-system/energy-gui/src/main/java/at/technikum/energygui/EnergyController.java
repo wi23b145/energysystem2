@@ -7,7 +7,6 @@ import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 
-
 import java.net.URI;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
@@ -18,7 +17,6 @@ import java.util.List;
 
 public class EnergyController {
 
-
     // --- UI ---
     @FXML private Label lblCommunityDepleted, lblGridPortion;
     @FXML private DatePicker dpStart, dpEnd;
@@ -26,14 +24,19 @@ public class EnergyController {
     @FXML private TableColumn<HistoryRow, String> colHour;
     @FXML private TableColumn<HistoryRow, Double> colProduced, colUsed, colGrid;
     @FXML private Label lblSumProduced, lblSumUsed, lblSumGrid;
-
+    @FXML private ProgressBar pbCommunity;
+    @FXML private ProgressBar pbGrid;
+    @FXML private CheckBox cbAutoRefresh;
+    @FXML private ComboBox<String> cbStartHour;
+    @FXML private ComboBox<String> cbStartMin;
+    @FXML private ComboBox<String> cbEndHour;
+    @FXML private ComboBox<String> cbEndMin;
 
     // --- HTTP + JSON ---
     private final HttpClient http = HttpClient.newHttpClient();
     private final ObjectMapper mapper = new ObjectMapper();
 
-
-    // Basis‑URL deiner REST‑API (ggf. anpassen!)
+    // Basis-URL deiner REST-API (ggf. anpassen!)
     private final String baseUrl = "http://localhost:8080";
 
     @FXML
@@ -43,11 +46,10 @@ public class EnergyController {
         colUsed.setCellValueFactory(new PropertyValueFactory<>("communityUsed"));
         colGrid.setCellValueFactory(new PropertyValueFactory<>("gridUsed"));
 
-
         dpStart.setValue(LocalDate.now());
         dpEnd.setValue(LocalDate.now());
 
-
+        // Initialer Refresh → lädt Daten vom Backend
         onRefresh();
     }
 
@@ -58,9 +60,13 @@ public class EnergyController {
                 var req = HttpRequest.newBuilder(URI.create(baseUrl + "/energy/current")).GET().build();
                 var res = http.send(req, HttpResponse.BodyHandlers.ofString());
                 CurrentDTO dto = mapper.readValue(res.body(), CurrentDTO.class);
+
                 Platform.runLater(() -> {
                     lblCommunityDepleted.setText(String.format("%.2f %%", dto.community_depleted));
+                    pbCommunity.setProgress(dto.community_depleted / 100.0);
+
                     lblGridPortion.setText(String.format("%.2f %%", dto.grid_portion));
+                    pbGrid.setProgress(dto.grid_portion / 100.0);
                 });
             } catch (Exception ex) {
                 ex.printStackTrace();
@@ -74,7 +80,6 @@ public class EnergyController {
         LocalDate e = dpEnd.getValue();
         if (s == null || e == null) return;
 
-
         String url = String.format("%s/energy/historical?start=%s&end=%s", baseUrl, s, e);
         runAsync(() -> {
             try {
@@ -83,11 +88,9 @@ public class EnergyController {
                 HistoryRow[] rows = mapper.readValue(res.body(), HistoryRow[].class);
                 List<HistoryRow> list = Arrays.asList(rows);
 
-
                 double sumP = list.stream().mapToDouble(HistoryRow::getCommunityProduced).sum();
                 double sumU = list.stream().mapToDouble(HistoryRow::getCommunityUsed).sum();
                 double sumG = list.stream().mapToDouble(HistoryRow::getGridUsed).sum();
-
 
                 Platform.runLater(() -> {
                     tblHistory.getItems().setAll(list);
@@ -107,7 +110,6 @@ public class EnergyController {
         t.start();
     }
 
-
     // --- DTOs ---
     @JsonIgnoreProperties(ignoreUnknown = true)
     public static class CurrentDTO {
@@ -122,7 +124,6 @@ public class EnergyController {
         public double community_produced;
         public double community_used;
         public double grid_used;
-
 
         public String getHour() { return hour; }
         public double getCommunityProduced() { return community_produced; }
