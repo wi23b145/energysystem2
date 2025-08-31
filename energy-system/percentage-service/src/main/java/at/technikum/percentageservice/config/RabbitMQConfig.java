@@ -1,4 +1,4 @@
-package at.technikum.energyproducer.config;
+package at.technikum.percentageservice.config;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
@@ -12,10 +12,10 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 public class RabbitMQConfig {
 
-    public static final String Q_USAGE = "energy.usage";
+    public static final String Q_PERCENTAGE = "energy.percentage";
 
     @Bean
-    public Queue usageQueue() { return new Queue(Q_USAGE, true); }
+    public Queue usageQueue() { return new Queue(Q_PERCENTAGE, true); }
 
     // JSON converter so @RabbitListener can deserialize to EnergyEvent (Instant supported)
     @Bean
@@ -25,3 +25,4 @@ public class RabbitMQConfig {
         return new Jackson2JsonMessageConverter(mapper);
     }
 }
+

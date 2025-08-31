@@ -1,34 +1,27 @@
 package at.technikum.energyapi.controller;
 
-import at.technikum.energyapi.dto.CurrentDto;
-import at.technikum.energyapi.dto.HistoricalDto;
-import at.technikum.energyapi.repo.EnergyReadRepository;
-import org.springframework.http.HttpStatus;
+import at.technikum.energyapi.dto.CurrentPercentageDTO;
+import at.technikum.energyapi.dto.HistoricalUsageDTO;
+import at.technikum.energyapi.service.EnergyProxyService;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.server.ResponseStatusException;
-
+import reactor.core.publisher.Mono;
 import java.time.Instant;
 
 @RestController
 @RequestMapping("/energy")
+@CrossOrigin
 public class EnergyController {
-    private final EnergyReadRepository repo;
-    public EnergyController(EnergyReadRepository repo) { this.repo = repo; }
+    private final EnergyProxyService proxy;
+    public EnergyController(EnergyProxyService proxy) { this.proxy = proxy; }
 
     @GetMapping("/current")
-    public CurrentDto current() {
-        return repo.getCurrent();
-    }
+    public Mono<CurrentPercentageDTO> current() { return proxy.current(); }
 
     @GetMapping("/historical")
-    public HistoricalDto historical(@RequestParam Instant start,
-                                    @RequestParam Instant end) {
-        if (!end.isAfter(start))
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "end must be after start");
-        return repo.getHistorical(start, end);
+    public Mono<HistoricalUsageDTO> historical(
+            @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) Instant start,
+            @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) Instant end) {
+        return proxy.historical(start, end);
     }
 }
-
-
-
-
