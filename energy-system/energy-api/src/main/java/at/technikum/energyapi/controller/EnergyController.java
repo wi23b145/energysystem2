@@ -9,7 +9,7 @@ import org.springframework.web.server.ResponseStatusException;
 
 import java.time.Instant;
 
-// Der Controller stellt Endpunkte für den Zugriff auf die Energieservices zur Verfügung
+// Der Controller stellt Endpunkte für den Zugriff auf die Energieservices zur Verfügung...
 @RestController
 @RequestMapping("/energy") // Basis-URL für alle Endpunkte dieser Klasse
 public class EnergyController {
