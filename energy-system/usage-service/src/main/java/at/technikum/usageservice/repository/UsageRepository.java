@@ -8,7 +8,9 @@ import java.time.Instant;
 import java.util.Optional;
 import java.util.UUID;
 
-@Repository
+@Repository // Kennzeichnet das Interface als Repository und ermöglicht Spring Data, es zu erkennen und automatisch zu implementieren
 public interface UsageRepository extends CrudRepository<Usage, UUID> {
+
+    // Diese Methode sucht nach einem 'Usage'-Objekt, das den angegebenen Zeitpunkt ('Instant') hat
     Optional<Usage> findByHour(Instant instant);
 }
