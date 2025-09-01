@@ -1,5 +1,11 @@
-at/technikum/energyapi/dto/CurrentDto.class
-at/technikum/energyapi/dto/HistoricalDto.class
-at/technikum/energyapi/EnergyApiApplication.class
-at/technikum/energyapi/repo/EnergyReadRepository.class
-at/technikum/energyapi/controller/EnergyController.class
+at\technikum\energyapi\entities\Usage$UsageBuilder.class
+at\technikum\energyapi\dto\CurrentDto.class
+at\technikum\energyapi\service\EnergyService.class
+at\technikum\energyapi\entities\Percentage$PercentageBuilder.class
+at\technikum\energyapi\EnergyApiApplication.class
+at\technikum\energyapi\repo\PercentageRepository.class
+at\technikum\energyapi\controller\EnergyController.class
+at\technikum\energyapi\dto\HistoricalDto.class
+at\technikum\energyapi\entities\Percentage.class
+at\technikum\energyapi\repo\UsageRepository.class
+at\technikum\energyapi\entities\Usage.class

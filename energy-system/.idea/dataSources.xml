@@ -1,9 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="DataSourceManagerImpl" format="xml" multifile-model="true">
-    <data-source source="LOCAL" name="energysystem@localhost" uuid="0554bef9-5a71-47d6-b792-440ea3468cbd">
+    <data-source source="LOCAL" name="energysystem@localhost" uuid="32b83ba7-8d7b-4d53-bb82-1adc2045e20e">
       <driver-ref>postgresql</driver-ref>
       <synchronize>true</synchronize>
+      <imported>true</imported>
+      <remarks>$PROJECT_DIR$/energy-api/src/main/resources/application.properties</remarks>
       <jdbc-driver>org.postgresql.Driver</jdbc-driver>
       <jdbc-url>jdbc:postgresql://localhost:5432/energysystem</jdbc-url>
       <jdbc-additional-properties>

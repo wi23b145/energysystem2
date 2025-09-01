@@ -34,16 +34,22 @@ public class UsageService {
                 .gridUsed(BigDecimal.ZERO)
                 .build());
 
-        var availableInCommunity = usage.getCommunityProduced().subtract(usage.getCommunityUsed());
-        // if community has enough to cover the needs, we don't change the grid used
-        if (availableInCommunity.compareTo(event.getKwh()) >= 0) {
-            usage.setCommunityUsed(usage.getCommunityUsed().add(event.getKwh()).setScale(3, RoundingMode.HALF_UP));
-        } else {
-            // the community did not produce enough to satisfy needs, so we need to take the rest from the grid
-            var requiredFromGrid = event.getKwh().subtract(availableInCommunity);
-            usage.setCommunityUsed(usage.getCommunityProduced().setScale(3, RoundingMode.HALF_UP));
-            usage.setGridUsed(usage.getGridUsed().add(requiredFromGrid).setScale(3, RoundingMode.HALF_UP));
-        }
+        BigDecimal x = event.getKwh();
+
+        // Wie viel ist in der Community noch verfügbar (nicht negativ)?
+        BigDecimal available = usage.getCommunityProduced().subtract(usage.getCommunityUsed());
+        if (available.signum() < 0) available = BigDecimal.ZERO;
+
+        // Anteil aus der Community + aus dem Netz
+        BigDecimal communityDraw = x.min(available);
+        BigDecimal gridDraw = x.subtract(communityDraw); // >= 0
+
+        usage.setCommunityUsed( usage.getCommunityUsed().add(communityDraw) );
+        usage.setGridUsed( usage.getGridUsed().add(gridDraw) );
+
+        // Optional: erst beim Speichern runden, nicht bei jeder Addition (vermeidet Rundungsdrift)
+        usage.setCommunityUsed( usage.getCommunityUsed().setScale(3, RoundingMode.HALF_UP) );
+        usage.setGridUsed( usage.getGridUsed().setScale(3, RoundingMode.HALF_UP) );
 
         repo.save(usage);
         sendUpdate(usage);
@@ -60,7 +66,9 @@ public class UsageService {
                 .gridUsed(BigDecimal.ZERO)
                 .build());
 
-        usage.setCommunityProduced(usage.getCommunityProduced().add(event.getKwh()).setScale(3, RoundingMode.HALF_UP));
+        usage.setCommunityProduced(
+                usage.getCommunityProduced().add(event.getKwh()).setScale(3, RoundingMode.HALF_UP)
+        );
 
         repo.save(usage);
         sendUpdate(usage);

@@ -1,6 +1,9 @@
-/Users/laura_aufischer/Desktop/stuff/UNI/SS2025/DIS_2/energy-system/usage-service/src/main/java/at/technikum/usageservice/dto/EnergyEvent.java
-/Users/laura_aufischer/Desktop/stuff/UNI/SS2025/DIS_2/energy-system/usage-service/src/main/java/at/technikum/usageservice/messaging/UsageListeners.java
-/Users/laura_aufischer/Desktop/stuff/UNI/SS2025/DIS_2/energy-system/usage-service/src/main/java/at/technikum/usageservice/config/RabbitMQConfig.java
-/Users/laura_aufischer/Desktop/stuff/UNI/SS2025/DIS_2/energy-system/usage-service/src/main/java/at/technikum/usageservice/service/UsageService.java
-/Users/laura_aufischer/Desktop/stuff/UNI/SS2025/DIS_2/energy-system/usage-service/src/main/java/at/technikum/usageservice/UsageServiceApplication.java
-/Users/laura_aufischer/Desktop/stuff/UNI/SS2025/DIS_2/energy-system/usage-service/src/main/java/at/technikum/usageservice/repository/UsageRepository.java
+C:\Users\fatim\Documents\energysystem2\energy-system\usage-service\src\main\java\at\technikum\usageservice\config\RabbitMQConfig.java
+C:\Users\fatim\Documents\energysystem2\energy-system\usage-service\src\main\java\at\technikum\usageservice\dto\EnergyEvent.java
+C:\Users\fatim\Documents\energysystem2\energy-system\usage-service\src\main\java\at\technikum\usageservice\dto\EnergyEventType.java
+C:\Users\fatim\Documents\energysystem2\energy-system\usage-service\src\main\java\at\technikum\usageservice\dto\PercentageEvent.java
+C:\Users\fatim\Documents\energysystem2\energy-system\usage-service\src\main\java\at\technikum\usageservice\entity\Usage.java
+C:\Users\fatim\Documents\energysystem2\energy-system\usage-service\src\main\java\at\technikum\usageservice\messaging\UsageListeners.java
+C:\Users\fatim\Documents\energysystem2\energy-system\usage-service\src\main\java\at\technikum\usageservice\repository\UsageRepository.java
+C:\Users\fatim\Documents\energysystem2\energy-system\usage-service\src\main\java\at\technikum\usageservice\service\UsageService.java
+C:\Users\fatim\Documents\energysystem2\energy-system\usage-service\src\main\java\at\technikum\usageservice\UsageServiceApplication.java

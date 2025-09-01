@@ -1,4 +1,4 @@
-package at.technikum.usageservice.entity;
+package at.technikum.energyapi.entities;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -17,27 +17,27 @@ import java.time.Instant;
 import java.util.UUID;
 
 @Entity
-@Table(name = "energy_usage", schema="energysystem")
+@Table(name = "percentage", schema="energysystem")
 @Getter
 @Setter
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class Usage {
+public class Percentage {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
+
     @Column(name = "id")
     private UUID id;
 
     @Column(name = "hour", columnDefinition = "TIMESTAMP")
     private Instant hour;
 
-    @Column(name = "community_produced", columnDefinition = "NUMERIC")
-    private BigDecimal communityProduced;
+    @Column(name = "community_depleted", columnDefinition = "NUMERIC")
+    private BigDecimal communityDepleted;
 
-    @Column(name = "community_used", columnDefinition = "NUMERIC")
-    private BigDecimal communityUsed;
-
-    @Column(name = "grid_used", columnDefinition = "NUMERIC")
-    private BigDecimal gridUsed;
+    @Column(name = "grid_portion", columnDefinition = "NUMERIC")
+    private BigDecimal gridPortion;
 }
+
+
