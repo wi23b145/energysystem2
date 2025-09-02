@@ -12,15 +12,16 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 public class RabbitMQConfig {
 
-    public static final String Q_PRODUCER = "energy.producer";
-    public static final String Q_USER     = "energy.user";
+    public static final String Q_USAGE = "energy.usage";
+    public static final String Q_PERCENTAGE = "energy.percentage";
 
     // Declare queues (harmless if they already exist)
     @Bean
-    public Queue producerQueue() { return new Queue(Q_PRODUCER, true); }
+    public Queue usageQueue() { return new Queue(Q_USAGE, true); }
 
     @Bean
-    public Queue userQueue() { return new Queue(Q_USER, true); }
+    public Queue percentageQueue() { return new Queue(Q_PERCENTAGE, true); }
+
 
     // JSON converter so @RabbitListener can deserialize to EnergyEvent (Instant supported)
     @Bean

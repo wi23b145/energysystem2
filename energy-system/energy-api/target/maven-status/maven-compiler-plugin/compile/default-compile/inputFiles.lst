@@ -1,5 +1,9 @@
-/Users/laura_aufischer/Desktop/stuff/UNI/SS2025/DIS_2/energy-system/energy-api/src/main/java/at/technikum/energyapi/EnergyApiApplication.java
-/Users/laura_aufischer/Desktop/stuff/UNI/SS2025/DIS_2/energy-system/energy-api/src/main/java/at/technikum/energyapi/controller/EnergyController.java
-/Users/laura_aufischer/Desktop/stuff/UNI/SS2025/DIS_2/energy-system/energy-api/src/main/java/at/technikum/energyapi/dto/CurrentDto.java
-/Users/laura_aufischer/Desktop/stuff/UNI/SS2025/DIS_2/energy-system/energy-api/src/main/java/at/technikum/energyapi/dto/HistoricalDto.java
-/Users/laura_aufischer/Desktop/stuff/UNI/SS2025/DIS_2/energy-system/energy-api/src/main/java/at/technikum/energyapi/repo/EnergyReadRepository.java
+C:\Users\fatim\Documents\energysystem2\energy-system\energy-api\src\main\java\at\technikum\energyapi\controller\EnergyController.java
+C:\Users\fatim\Documents\energysystem2\energy-system\energy-api\src\main\java\at\technikum\energyapi\dto\CurrentDto.java
+C:\Users\fatim\Documents\energysystem2\energy-system\energy-api\src\main\java\at\technikum\energyapi\dto\HistoricalDto.java
+C:\Users\fatim\Documents\energysystem2\energy-system\energy-api\src\main\java\at\technikum\energyapi\EnergyApiApplication.java
+C:\Users\fatim\Documents\energysystem2\energy-system\energy-api\src\main\java\at\technikum\energyapi\entities\Percentage.java
+C:\Users\fatim\Documents\energysystem2\energy-system\energy-api\src\main\java\at\technikum\energyapi\entities\Usage.java
+C:\Users\fatim\Documents\energysystem2\energy-system\energy-api\src\main\java\at\technikum\energyapi\repo\PercentageRepository.java
+C:\Users\fatim\Documents\energysystem2\energy-system\energy-api\src\main\java\at\technikum\energyapi\repo\UsageRepository.java
+C:\Users\fatim\Documents\energysystem2\energy-system\energy-api\src\main\java\at\technikum\energyapi\service\EnergyService.java
