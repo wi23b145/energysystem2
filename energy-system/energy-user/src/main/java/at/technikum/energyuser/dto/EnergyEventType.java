@@ -1,5 +1,6 @@
 package at.technikum.energyuser.dto;
 
+// Enum für den Typ eines Energieereignisses
 public enum EnergyEventType {
-    USER
+    USER // Typ für Benutzerdaten
 }
