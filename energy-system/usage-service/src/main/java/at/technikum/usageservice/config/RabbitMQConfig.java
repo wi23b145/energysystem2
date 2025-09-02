@@ -8,25 +8,37 @@ import org.springframework.amqp.support.converter.Jackson2JsonMessageConverter;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
-@EnableRabbit
-@Configuration
+@EnableRabbit // Aktiviert RabbitMQ für die Spring-Anwendung, ermöglicht die Verwendung von RabbitMQ-bezogenen Funktionen
+@Configuration // Kennzeichnet diese Klasse als eine Konfigurationsklasse, die Beans definiert
 public class RabbitMQConfig {
 
-    public static final String Q_PRODUCER = "energy.producer";
-    public static final String Q_USER     = "energy.user";
+    public static final String Q_USAGE = "energy.usage"; // Definiert den Namen der Queue für 'Usage'-Daten
+    public static final String Q_PERCENTAGE = "energy.percentage"; // Definiert den Namen der Queue für 'Percentage'-Daten
 
-    // Declare queues (harmless if they already exist)
+    // Definiert eine Bean für die 'Usage'-Queue, die von Spring RabbitMQ verwaltet wird
     @Bean
-    public Queue producerQueue() { return new Queue(Q_PRODUCER, true); }
+    public Queue usageQueue() {
+        // Die Queue ist persistent (d.h. sie überlebt einen Neustart des RabbitMQ-Servers)
+        return new Queue(Q_USAGE, true);
+    }
 
+    // Definiert eine Bean für die 'Percentage'-Queue, die ebenfalls persistent ist
     @Bean
-    public Queue userQueue() { return new Queue(Q_USER, true); }
+    public Queue percentageQueue() {
+        // Die Queue ist persistent
+        return new Queue(Q_PERCENTAGE, true);
+    }
 
-    // JSON converter so @RabbitListener can deserialize to EnergyEvent (Instant supported)
+    // Definiert eine Bean für den Jackson2JsonMessageConverter, der die Nachricht von und nach JSON konvertiert
     @Bean
     public Jackson2JsonMessageConverter jackson2JsonMessageConverter() {
+        // Erzeugt ein neues 'ObjectMapper'-Objekt für die JSON-Konvertierung
         ObjectMapper mapper = new ObjectMapper();
+
+        // Registriert das 'JavaTimeModule', um mit `Instant` und anderen Java-Zeit-APIs zu arbeiten
         mapper.registerModule(new JavaTimeModule());
+
+        // Gibt einen neuen Jackson2JsonMessageConverter zurück, der das konstruierte ObjectMapper verwendet
         return new Jackson2JsonMessageConverter(mapper);
     }
 }

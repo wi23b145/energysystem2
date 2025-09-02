@@ -1,62 +1,16 @@
 package at.technikum.usageservice.repository;
 
-import org.springframework.jdbc.core.JdbcTemplate;
+import at.technikum.usageservice.entity.Usage;
+import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
-import org.springframework.transaction.annotation.Transactional;
 
-import java.sql.Timestamp;
 import java.time.Instant;
-import java.time.temporal.ChronoUnit;
+import java.util.Optional;
+import java.util.UUID;
 
-@Repository
-public class UsageRepository {
-    private final JdbcTemplate jdbc;
-    public UsageRepository(JdbcTemplate jdbc) { this.jdbc = jdbc; }
+@Repository // Kennzeichnet das Interface als Repository und ermöglicht Spring Data, es zu erkennen und automatisch zu implementieren
+public interface UsageRepository extends CrudRepository<Usage, UUID> {
 
-    @Transactional
-    public void addProducer(Instant ts, double kwh) {
-        Instant hour = ts.truncatedTo(ChronoUnit.HOURS);
-
-        // try update
-        int rows = jdbc.update(
-                "UPDATE usage_hour SET community_produced = community_produced + ? WHERE hour = ?",
-                kwh, Timestamp.from(hour)
-        );
-
-        // if no row updated → insert new
-        if (rows == 0) {
-            jdbc.update(
-                    "INSERT INTO usage_hour (hour, community_produced, community_used, grid_used) VALUES (?, ?, 0, 0)",
-                    Timestamp.from(hour), kwh
-            );
-        }
-
-        recomputeGrid(hour);
-    }
-
-    @Transactional
-    public void addUser(Instant ts, double kwh) {
-        Instant hour = ts.truncatedTo(ChronoUnit.HOURS);
-
-        int rows = jdbc.update(
-                "UPDATE usage_hour SET community_used = community_used + ? WHERE hour = ?",
-                kwh, Timestamp.from(hour)
-        );
-
-        if (rows == 0) {
-            jdbc.update(
-                    "INSERT INTO usage_hour (hour, community_produced, community_used, grid_used) VALUES (?, 0, ?, 0)",
-                    Timestamp.from(hour), kwh
-            );
-        }
-
-        recomputeGrid(hour);
-    }
-
-    private void recomputeGrid(Instant hour) {
-        jdbc.update(
-                "UPDATE usage_hour SET grid_used = GREATEST(0, community_used - community_produced) WHERE hour = ?",
-                Timestamp.from(hour)
-        );
-    }
+    // Diese Methode sucht nach einem 'Usage'-Objekt, das den angegebenen Zeitpunkt ('Instant') hat
+    Optional<Usage> findByHour(Instant instant);
 }
